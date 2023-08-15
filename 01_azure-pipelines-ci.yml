@@ -19,7 +19,7 @@ steps:
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'sonarcloud'
-    organization: 'sonartest8978'
+    organization: 'learningcloud8978'
     scannerMode: 'MSBuild'
     projectKey: 'learningcloud8978'
     projectName: 'MYPROJECT'
