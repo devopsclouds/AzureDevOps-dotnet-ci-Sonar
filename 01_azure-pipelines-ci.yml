@@ -15,6 +15,14 @@ steps:
     version: 6.0.x
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'sonarcloud'
+    organization: 'sonartest8978'
+    scannerMode: 'MSBuild'
+    projectKey: 'learningcloud8978'
+    projectName: 'MYPROJECT'
 - task: DotNetCoreCLI@2
   displayName: Restore Nuget Packages
   inputs:
@@ -34,6 +42,7 @@ steps:
     projects: '**/*UnitTest*.csproj'
     arguments: '--configuration $(BuildConfiguration)'
 
+
 - task: DotNetCoreCLI@2
   displayName: Create Web App Package (.zip)
   inputs:
@@ -46,3 +55,9 @@ steps:
   displayName: 'Publish Artifact (WebApp.zip)'
   inputs:
     PathtoPublish: '$(build.artifactstagingdirectory)'
+- task: SonarCloudAnalyze@1
+  inputs:
+    jdkversion: 'JAVA_HOME_17_X64'
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
